@@ -1,65 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <link rel="stylesheet" href="script.js">
+    <title>My Books</title>
+   
 </head>
+
 <body>
-    
-    <h1 class="h1">My Book</h1>
-<h2 class="h2">Add book</h2>
-<table>
-    <tr>
-        <th>no</th>
-        <th>title</th>
-        <th>description</th>
-        <th>author</th>
-        <th>publisher</th>
-    </tr>
+    <h1>My Books</h1>
+    <div class="container">
+        <div class="form">
+            <h2>Add Book</h2>
+            <form id="bookForm">
+                <label>Title <input type="text" id="title"></label>
+                <label>Description <textarea id="description"></textarea></label>
+                <label>Author <input type="text" id="author"></label>
+                <label>Publisher <input type="text" id="publisher"></label>
+                <div class="buttons">
+                    <button type="submit" id="saveBtn">Save</button>
+                    <button type="button" id="clearBtn">Clear</button>
+                </div>
+            </form>
+        </div>
+        <div class="list">
+            <h2>Book List</h2>
+            <table id="bookTable">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Author</th>
+                        <th>Publisher</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data buku muncul di sini -->
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-    <tr>
-        <td>1</td>
-        <td>git dasar</td>
-        <td>panduan dasar penggunaan git untuk pemula</td>
-        <td>andi wijaya</td>
-        <td>informatika</td>
-    </tr>
+    <script>
+        const form = document.getElementById("bookForm");
+        const title = document.getElementById("title");
+        const description = document.getElementById("description");
+        const author = document.getElementById("author");
+        const publisher = document.getElementById("publisher");
+        const tableBody = document.querySelector("#bookTable tbody");
+        const clearBtn = document.getElementById("clearBtn");
 
-    <tr>
-        <td>2</td>
-        <td>belajar html & css</td>
-        <td>membuat website statis dengan html dan css</td>
-        <td>siti rahma </td>
-        <td>elex media</td>
-    </tr>
+        // Save button
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            if (!title.value || !description.value || !author.value || !publisher.value) {
+                alert("Semua field harus diisi!");
+                return;
+            }
+            const row = document.createElement("tr");
+            row.innerHTML = `
+        <td data-label="Title">${title.value}</td>
+        <td data-label="Description">${description.value}</td>
+        <td data-label="Author">${author.value}</td>
+        <td data-label="Publisher">${publisher.value}</td>
+      `;
+            tableBody.appendChild(row);
+            form.reset();
+            title.focus();
+        });
 
-    <tr>
-        <td>3</td>
-        <td>javascript untuk pemula </td>
-        <td>dasar-dasar pemrograman javasript dan dom </td>
-        <td>budi santoso</td>
-        <td>gramedia</td>
-    </tr>
-
-    <tr>
-        <td>4</td>
-        <td>belajar react js</td>
-        <td>membuat aplikasi front end modern dengan react</td>
-        <td>rina octavia</td>
-        <td>dicoding</td>
-    </tr>
-
-    <tr>
-        <td>5</td>
-        <td>algoritma dan pemrograman</td>
-        <td>pengenalan algoritma dasar untuk pemrograman </td>
-        <td>dewi lestari</td>
-        <td>deepublish</td>
-    </tr>
-
-</table>
-
+        // Clear button
+        clearBtn.addEventListener("click", function () {
+            form.reset();
+            title.focus();
+        });
+    </script>
 </body>
+
 </html>
